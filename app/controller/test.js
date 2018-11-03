@@ -19,7 +19,6 @@ class TestController extends Controller {
   async view () {
     const { ctx, app } = this
     const { query } = ctx
-    console.log(query)
     var pagenation = '', tn
     query.table_name ?  tn = query.table_name : tn = 'api_business'
     if (!query.p || query.p === '1') {
@@ -32,6 +31,14 @@ class TestController extends Controller {
     let a = await app.mysql.query(sqlquery.find(tn, '*', pagenation))
     await ctx.render('index.ejs', {a, title: '列表', tn, tt})
     // ctx.body = {a, title: '企业列表', query: sqlquery.find('api_business', 'name, id', pagenation), tt}
+  }
+  async showtables () {
+    const {ctx, app} = this
+    const query = { ctx }
+    let list = await app.mysql.query('show TABLES;');
+    console.log(list)
+    await ctx.render('list.ejs', {list})
+    // ctx.body = {code: 1, list}
   }
 }
 

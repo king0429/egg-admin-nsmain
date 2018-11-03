@@ -14,4 +14,5 @@ module.exports = app => {
   router.get('/test', controller.test.index)
   router.get('/test/database_connection', controller.test.db)
   router.get('/test/view', controller.test.view)
+  router.get('/test/viewlist', controller.test.showtables)
 };

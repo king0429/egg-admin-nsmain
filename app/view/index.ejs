@@ -14,14 +14,25 @@
     padding: 12px 10px;
   }
   table {
+    /* padding: 0 40px; */
     border-color: #333;
     border-width: 1px;
     width: 94%;
     margin: 0 auto;
+    font-size: 14px;
   }
   tr {
-    height: 36px;
+    height: 45px;
     text-align: center;
+    max-height: 108px;
+  }
+  tr:hover {
+    background: #cf3a40;
+    color: #fff;
+  }
+  .table_header tr:hover {
+    background: none;
+    color: #333;
   }
   .btn {
     margin: 20px 0;
@@ -30,7 +41,7 @@
   .btn button {
     width: 64px;
     height: 40px;
-    background: #99CCFF;
+    background: #cf3a40;
     color: #fff;
     border: none;
     margin: 0 15px;
@@ -60,9 +71,9 @@
     /* display: inline-block; */
     /* display: block; */
     height: 34px;
-    border: 1px solid #99CCFF;
+    border: 1px solid #cf3a40;
     line-height: 32px;
-    background: #99CCFF;
+    background: #cf3a40;
     width: 94px;
     text-align: center;
     color: #fff;
@@ -71,7 +82,7 @@
   </style>
 </head>
 <body>
-  <h1>表名: <%= tn.substr(4, tt.length) %></h1>
+  <h1>表名: <%= tn %></h1>
   <div class="search ">
     <form class="" action="./view" method="get">
       <input type="text" placeholder="请输入表名称" id="key" name="table_name">
@@ -80,7 +91,7 @@
     </form>
   </div>
   <table border="1" cellspacing="0" cellpadding='0'>
-    <thead>
+    <thead class="table_header">
       <td>索引</td>
       <% tt.forEach(function(val, index) { %>
         <td><%= val.Field%></td>
@@ -104,13 +115,18 @@
     function handlePage (sw) {
       let q = str2obj(location.search)
       // sw > 0 ? window.location.href = 'http://127.0.0.1:7000/test/view?p=' + (Number(pagenation) + 1) : window.location.href = 'http://127.0.0.1:7000/test/view?p=' + (Number(pagenation) - 1)
-      if (sw > 0) {
-        q.p++
+      if (q && q.p) {
+        if (sw > 0) {
+          q.p++
+        } else {
+          q.p--
+        }
+        location.href = location.origin + location.pathname + obj2str(q)
       } else {
-        q.p--
+        location.href = location.origin + location.pathname + '?p=2'
       }
+
       console.log(location.origin + location.pathname + obj2str(q))
-      location.href = location.origin + location.pathname + obj2str(q)
     }
     // window.onload = function () {
     //   // 判断是否显示
@@ -145,6 +161,8 @@
           prev.style.display = 'inline-block';
           next.style.display = 'inline-block';
         }
+      } else {
+        next.style.display = 'inline-block';
       }
     }
     const obj2str = (obj) => {
