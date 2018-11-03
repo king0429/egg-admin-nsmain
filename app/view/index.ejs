@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style media="screen">
+  *{
+    margin: 0;
+    padding: 0;
+  }
+  h1 {
+    padding: 12px 10px;
+  }
+  table {
+    border-color: #333;
+    border-width: 1px;
+    width: 94%;
+    margin: 0 auto;
+  }
+  tr {
+    height: 36px;
+    text-align: center;
+  }
+  .btn {
+    margin: 20px 0;
+    text-align: center;
+  }
+  .btn button {
+    width: 64px;
+    height: 40px;
+    background: #99CCFF;
+    color: #fff;
+    border: none;
+    margin: 0 15px;
+    display: none;
+  }
+  pre {
+    padding: 15px 20px;
+    background: #eee;
+    color: #333;
+    margin: 10px 12px;
+  }
+  input {
+    width: 400px;
+    height: 32px;
+    border: 1px solid #eaeaea;
+    padding: 0px 4px;
+    outline: none;
+  }
+  .search {
+    margin: 40px 0;
+    padding: 0 43px;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 0;
+  }
+  .search .btn {
+    /* display: inline-block; */
+    /* display: block; */
+    height: 34px;
+    border: 1px solid #99CCFF;
+    line-height: 32px;
+    background: #99CCFF;
+    width: 94px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+  }
+  </style>
+</head>
+<body>
+  <h1>表名: <%= tn.substr(4, tt.length) %></h1>
+  <div class="search ">
+    <form class="" action="./view" method="get">
+      <input type="text" placeholder="请输入表名称" id="key" name="table_name">
+      <input type="text" name="p" value="1" hidden>
+      <input type="submit" value="查询" class="btn">
+    </form>
+  </div>
+  <table border="1" cellspacing="0" cellpadding='0'>
+    <thead>
+      <td>索引</td>
+      <% tt.forEach(function(val, index) { %>
+        <td><%= val.Field%></td>
+      <% })%>
+    </thead>
+    <% a.forEach(function(val, index){ %>
+      <tr>
+        <td><%=index + 1%></td>
+        <%tt.forEach(function (item, index1) {%>
+          <td><%=val[item.Field]%></td>
+        <%})%>
+      </tr>
+    <% })%>
+  </table>
+  <div class="btn">
+    <button type="button" id="prev" name="button" onclick="handlePage(-1)">上一页</button>
+    <button type="button" id="next" name="button" onclick="handlePage(1)">下一页</button>
+  </div>
+  <script type="text/javascript">
+    // 翻页
+    function handlePage (sw) {
+      let q = str2obj(location.search)
+      // sw > 0 ? window.location.href = 'http://127.0.0.1:7000/test/view?p=' + (Number(pagenation) + 1) : window.location.href = 'http://127.0.0.1:7000/test/view?p=' + (Number(pagenation) - 1)
+      if (sw > 0) {
+        q.p++
+      } else {
+        q.p--
+      }
+      console.log(location.origin + location.pathname + obj2str(q))
+      location.href = location.origin + location.pathname + obj2str(q)
+    }
+    // window.onload = function () {
+    //   // 判断是否显示
+    //   console.log(document.getElementById('next'))
+    //   let url = location.href.indexOf('?')
+    //   if (!location.href.indexOf('?')) {
+    //     document.getElementById('next').style.display = 'inline-block';
+    //   } else {
+    //     let pagenation = location.href.substr(location.href.indexOf('=') + 1, location.href.length)
+    //     if (pagenation === '1') {
+    //       document.getElementById('next').style.display = 'inline-block';
+    //     } else if (document.getElementsByTagName('tr').length < 10) {
+    //       document.getElementById('prev').style.display = 'inline-block';
+    //     } else {
+    //       document.getElementById('prev').style.display = 'inline-block';
+    //       document.getElementById('next').style.display = 'inline-block';
+    //     }
+    //   }
+    // }
+    window.onload = function () {
+      let q = location.search
+      const prev = document.getElementById('prev')
+      const next = document.getElementById('next')
+      if (q) {
+        let queryObj = str2obj(q)
+        console.log(queryObj)
+        if (queryObj.p === '1') {
+          next.style.display = 'inline-block';
+        } else if (document.getElementsByTagName('tr').length < 10) {
+          prev.style.display = 'inline-block';
+        } else {
+          prev.style.display = 'inline-block';
+          next.style.display = 'inline-block';
+        }
+      }
+    }
+    const obj2str = (obj) => {
+      let str = '?'
+      for (let j in obj) {
+        str += `${j}=${obj[j]}&`
+      }
+      return str.substr(0, str.length - 1)
+    }
+    const str2obj = (str) => {
+      str = str.substr(1, str.length - 1)
+      let arr = str.split('&'), obj = {}
+      arr.forEach((item) => {
+          obj[item.split('=')[0]] = item.split('=')[1]
+        })
+        return obj
+      }
+  </script>
+</body>
+</html>
