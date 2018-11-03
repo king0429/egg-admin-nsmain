@@ -6,61 +6,61 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <style media="screen">
-  *{
-    margin: 0;
-    padding: 0;
-  }
-  html, body {
-    height: 100%;
-  }
-  .board {
-    height: 64px;
-    padding: 0 24px;
-    line-height: 64px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .board i {
-    padding: 3px 6px;
-    background: #d37d3b;
-    margin-right: 12px;
-  }
-  .board span {
-    font-size: 18px;
-    font-weight: bolder;
-    color: #cf3a40;
-  }
-  .board input {
-    width: 265px;
-    height: 32px;
-    border: 1px solid #eaeaea;
-    padding: 0 6px;
-    outline: none;
-  }
-  ul {
-    height: calc(100% - 104px);
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    margin: 0 20px;
-  }
-  li {
-    list-style: none;
-    width: 18%;
-    padding: 5px 16px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 14px;
-    cursor: pointer;
-  }
-  li a {
-    color: #cf3a40;
-  }
-  li a:hover {
-    color: #d37d3b;
-  }
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      height: 100%;
+    }
+    .board {
+      height: 64px;
+      padding: 0 24px;
+      line-height: 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .board i {
+      padding: 3px 6px;
+      background: #d37d3b;
+      margin-right: 12px;
+    }
+    .board span {
+      font-size: 18px;
+      font-weight: bolder;
+      color: #cf3a40;
+    }
+    .board input {
+      width: 265px;
+      height: 32px;
+      border: 1px solid #eaeaea;
+      padding: 0 6px;
+      outline: none;
+    }
+    ul {
+      height: calc(100% - 104px);
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      margin: 0 20px;
+    }
+    li {
+      list-style: none;
+      width: 18%;
+      padding: 5px 16px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    li a {
+      color: #cf3a40;
+    }
+    li a:hover {
+      color: #d37d3b;
+    }
   </style>
 </head>
 <body>
@@ -79,16 +79,11 @@
   <script type="text/javascript">
     const handleInput = (e) => {
       let v =  new RegExp(e.value)
-      // console.log(v)
       for (let i = 0; i < document.getElementsByTagName('li').length; i++) {
         let item = document.getElementsByTagName('li').item(i)
         item.style.display = 'none'
         !v.test(item.innerText) ? item.style.display = 'none' : item.style.display = 'block'
       }
-      // arr.forEach(elem => {
-      //   // body...
-      //   console.log('li')
-      // });
     }
   </script>
 </body>

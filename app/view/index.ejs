@@ -10,8 +10,15 @@
     margin: 0;
     padding: 0;
   }
-  h1 {
-    padding: 12px 10px;
+  .back a {
+    text-decoration: none;
+    background: #d37d3b;
+    text-align: center;
+    display: block;
+    width: 120px;
+    height: 45px;
+    line-height: 45px;
+    color: #fff;
   }
   table {
     /* padding: 0 40px; */
@@ -54,7 +61,7 @@
     margin: 10px 12px;
   }
   input {
-    width: 400px;
+    width: 330px;
     height: 32px;
     border: 1px solid #eaeaea;
     padding: 0px 4px;
@@ -79,12 +86,54 @@
     color: #fff;
     cursor: pointer;
   }
+  div.is_null {
+    width: 94%;
+    line-height: 54px;
+    color: #999;
+    text-align: center;;
+    margin: 0 auto;
+    font-size: 14px;
+  }
+  .board {
+    height: 64px;
+    padding: 0 24px;
+    line-height: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .board i {
+    padding: 3px 6px;
+    background: #d37d3b;
+    margin-right: 12px;
+  }
+  .board span {
+    font-size: 18px;
+    font-weight: bolder;
+    color: #cf3a40;
+  }
+  .form {
+    /* margin: 0 auto; */
+    width: 100%;
+    text-align: right;
+  }
   </style>
 </head>
 <body>
-  <h1>表名: <%= tn %></h1>
-  <div class="search ">
-    <form class="" action="./view" method="get">
+  <div class="back">
+    <a href="./viewlist">
+      <span><</span>
+      <span>返回列表</span>
+    </a>
+  </div>
+  <div class="board">
+    <div>
+      <i></i>
+      <span><%= tn %></span>
+    </div>
+  </div>
+  <div class="search">
+    <form class="form" action="./view" method="get">
       <input type="text" placeholder="请输入表名称" id="key" name="table_name">
       <input type="text" name="p" value="1" hidden>
       <input type="submit" value="查询" class="btn">
@@ -92,20 +141,25 @@
   </div>
   <table border="1" cellspacing="0" cellpadding='0'>
     <thead class="table_header">
-      <td>索引</td>
+      <td>index</td>
       <% tt.forEach(function(val, index) { %>
         <td><%= val.Field%></td>
       <% })%>
     </thead>
     <% a.forEach(function(val, index){ %>
       <tr>
-        <td><%=index + 1%></td>
+        <td><%=index + 1 < 10 ? '0' + (index + 1) : index + 1%></td>
         <%tt.forEach(function (item, index1) {%>
           <td><%=val[item.Field]%></td>
         <%})%>
       </tr>
     <% })%>
   </table>
+  <% if (a.length === 0){%>
+    <div class="is_null">
+      数据表无数据
+    </div>
+  <%}%>
   <div class="btn">
     <button type="button" id="prev" name="button" onclick="handlePage(-1)">上一页</button>
     <button type="button" id="next" name="button" onclick="handlePage(1)">下一页</button>
@@ -150,19 +204,23 @@
       let q = location.search
       const prev = document.getElementById('prev')
       const next = document.getElementById('next')
-      if (q) {
-        let queryObj = str2obj(q)
-        console.log(queryObj)
-        if (queryObj.p === '1') {
-          next.style.display = 'inline-block';
-        } else if (document.getElementsByTagName('tr').length < 10) {
-          prev.style.display = 'inline-block';
+      let len = document.getElementsByTagName('tr').length
+      console.log(len)
+      if (len !== 1) {
+        if (q) {
+          let queryObj = str2obj(q)
+          console.log(queryObj)
+          if (queryObj.p === '1') {
+            next.style.display = 'inline-block';
+          } else if (document.getElementsByTagName('tr').length < 10) {
+            prev.style.display = 'inline-block';
+          } else {
+            prev.style.display = 'inline-block';
+            next.style.display = 'inline-block';
+          }
         } else {
-          prev.style.display = 'inline-block';
           next.style.display = 'inline-block';
         }
-      } else {
-        next.style.display = 'inline-block';
       }
     }
     const obj2str = (obj) => {
