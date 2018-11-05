@@ -1,8 +1,8 @@
 const err = 'error query'
 module.exports = {
-  find: (table_name, params, os) => {
-    if (typeof table_name === 'string' && typeof params === 'string') {
-      let qu = `SELECT ${params} FROM ${table_name} ${os};`
+  find: (table_name, os, params) => {
+    if (typeof table_name === 'string') {
+      let qu = `SELECT ${params || '*'} FROM ${table_name} ${os};`
       return qu
     } else {
       return err

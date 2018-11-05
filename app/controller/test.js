@@ -1,12 +1,10 @@
 'use strict'
-
 const Controller = require('egg').Controller
 const sqlquery = require('../utils/sqlquery.js')
-console.log(sqlquery.find)
 
 class TestController extends Controller {
   async index () {
-    this.ctx.body = {code: '909', errMsg: 'enter test', a}
+    this.ctx.body = {code: '909', errMsg: 'enter test', contoller: this.app.controller}
   }
   async db () {
     // console.log(this.app.mysql.get('api_business'))
@@ -28,7 +26,7 @@ class TestController extends Controller {
     }
     // consoe.log(sqlquery.find('api_business', 'name, id', pagenation))
     let tt = await app.mysql.query(`SHOW FULL COLUMNS FROM mock_data_nsmain.${tn};`);
-    let a = await app.mysql.query(sqlquery.find(tn, '*', pagenation))
+    let a = await app.mysql.query(sqlquery.find(tn, pagenation))
     await ctx.render('index.ejs', {a, title: '列表', tn, tt})
     // ctx.body = {a, title: '企业列表', query: sqlquery.find('api_business', 'name, id', pagenation), tt}
   }

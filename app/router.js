@@ -4,7 +4,7 @@
  */
 module.exports = app => {
   const { router, controller } = app
-  // console.log(controller)
+  // console.dir(controller)
   router.get('/', controller.home.index);
   router.get('/chain', controller.chain.chain)
   router.get('/chain/contract', controller.chain.contract)
@@ -15,4 +15,7 @@ module.exports = app => {
   router.get('/test/database_connection', controller.test.db)
   router.get('/test/view', controller.test.view)
   router.get('/test/viewlist', controller.test.showtables)
+  // 订单融资
+  router.get('/api/orderfinancing/usage', controller.orderfinancing.usage)
+  router.get('/api/orderfinancing/cover_pool', controller.orderfinancing.coverPool)
 };
