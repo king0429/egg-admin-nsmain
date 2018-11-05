@@ -48,5 +48,15 @@ class orderFinancingController extends Controller {
       ctx.body = {code: '-1', errMsg: '无效的参数'}
     }
   }
+  async assure () {
+    const {ctx, app} = this
+    const {query} = ctx
+    if (query.financing_id) {
+      let list = await app.mysql.query(sqlquery.find('api_othercollateral', `WHERE object_id=${query.financing_id}`))
+      ctx.body = list
+    } else {
+      ctx.body = {code: 0, errMsg: '无效的参数', query}
+    }
+  }
 }
 module.exports = orderFinancingController

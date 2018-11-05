@@ -17,5 +17,8 @@ module.exports = app => {
   router.get('/test/viewlist', controller.test.showtables)
   // 订单融资
   router.get('/api/orderfinancing/usage', controller.orderfinancing.usage)
+  // 担保池
   router.get('/api/orderfinancing/cover_pool', controller.orderfinancing.coverPool)
+  // 其他担保列表
+  router.get('/api/orderfinancing/assure', controller.orderfinancing.assure)
 };
