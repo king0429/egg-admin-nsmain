@@ -10,7 +10,7 @@ class TestController extends Controller {
     // console.log(this.app.mysql.get('api_business'))
     // lst data = this.app.mysql.get('api_business')
     const that = this
-    console.log(this.middleware)
+    // console.log(this.middleware)
     let a = await this.app.mysql.query(sqlquery.findAll('api_chain'))
     this.ctx.body = {code: 400, a}
   }

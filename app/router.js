@@ -21,4 +21,10 @@ module.exports = app => {
   router.get('/api/orderfinancing/cover_pool', controller.orderfinancing.coverPool)
   // 其他担保列表
   router.get('/api/orderfinancing/assure', controller.orderfinancing.assure)
+  // 企业申请订单融资
+  router.get('/api/order_application/contract', controller.orderApplication.getContractList)
+  // 订单生成的第一还款来源
+  router.get('/api/order_application/get_first', controller.orderApplication.getContractList)
+  // 获取企业列表
+  router.get('/api/business', controller.business.getList)
 };

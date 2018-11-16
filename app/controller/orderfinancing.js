@@ -1,7 +1,6 @@
 'use strict'
 const Controller = require('egg').Controller
 const sqlquery = require('../utils/sqlquery.js')
-const async = require('async')
 
 class orderFinancingController extends Controller {
   async usage () {
@@ -50,6 +49,7 @@ class orderFinancingController extends Controller {
   }
   async assure () {
     const {ctx, app} = this
+    // console.log(ctx)
     const {query} = ctx
     if (query.financing_id) {
       let list = await app.mysql.query(sqlquery.find('api_othercollateral', `WHERE object_id=${query.financing_id}`))
